@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sdf version='1.9'>
-  <model name='px4vision'>
+  <model name='fire_px4vision'>
     <pose>0 0 .24 0 0 0</pose>
     <self_collide>false</self_collide>
     <static>false</static>
@@ -44,7 +44,7 @@
         <geometry>
           <mesh>
             <scale>0.001 0.001 0.001</scale>
-            <uri>model://px4vision/meshes/body.dae</uri>
+            <uri>model://fire_px4vision/meshes/body.dae</uri>
           </mesh>
         </geometry>
         <material> <!-- DarkGrey-->
@@ -99,8 +99,9 @@
       </sensor>
       <sensor name="imu_sensor" type="imu">
         <gz_frame_id>base_link</gz_frame_id>
+        <pose degrees="true">0 0 0 180 0 0</pose>
         <always_on>1</always_on>
-        <update_rate>250</update_rate>
+        <update_rate>1000</update_rate>
         <imu>
           <angular_velocity>
             <x>
@@ -193,7 +194,7 @@
         <geometry>
           <mesh>
             <scale>0.6 0.6 0.6</scale>
-            <uri>model://px4vision/meshes/iris_prop_ccw.dae</uri>
+            <uri>model://fire_px4vision/meshes/iris_prop_ccw.dae</uri>
           </mesh>
         </geometry>
         <material> <!-- Blue -->
@@ -265,7 +266,7 @@
         <geometry>
           <mesh>
             <scale>0.6 0.6 0.6</scale>
-            <uri>model://px4vision/meshes/iris_prop_ccw.dae</uri>
+            <uri>model://fire_px4vision/meshes/iris_prop_ccw.dae</uri>
           </mesh>
         </geometry>
         <material> <!-- DarkGrey -->
@@ -337,7 +338,7 @@
         <geometry>
           <mesh>
             <scale>0.6 0.6 0.6</scale>
-            <uri>model://px4vision/meshes/iris_prop_cw.dae</uri>
+            <uri>model://fire_px4vision/meshes/iris_prop_cw.dae</uri>
           </mesh>
         </geometry>
         <material> <!-- Blue -->
@@ -409,7 +410,7 @@
         <geometry>
           <mesh>
             <scale>0.6 0.6 0.6</scale>
-            <uri>model://px4vision/meshes/iris_prop_cw.dae</uri>
+            <uri>model://fire_px4vision/meshes/iris_prop_cw.dae</uri>
           </mesh>
         </geometry>
         <material> <!-- DarkGrey -->
@@ -445,9 +446,6 @@
         </force_torque>
       </sensor>
     </joint>
-    <!-- Disabled legacy ArduPilot-specific propulsion and interface.
-         Kept temporarily as a migration reference; the active common plant
-         below uses MulticopterMotorModel for both flight stacks.
     <plugin filename="gz-sim-joint-state-publisher-system"
       name="gz::sim::systems::JointStatePublisher">
     </plugin>
@@ -457,7 +455,7 @@
       <robot_base_frame>base_link</robot_base_frame>
       <dimensions>3</dimensions>
       <odom_publish_frequency>100</odom_publish_frequency>
-      <odom_topic>/model/px4vision/odometry</odom_topic>
+      <odom_topic>/model/fire_px4vision/odometry</odom_topic>
     </plugin>
 
     <plugin filename="gz-sim-lift-drag-system"
@@ -701,77 +699,6 @@
         <cmd_min>-2.5</cmd_min>
         <controlVelocitySlowdownSim>1</controlVelocitySlowdownSim>
       </control>
-    </plugin>
-    -->
-
-    <!-- Common PX4 / ArduPilot propulsion plant. -->
-    <plugin filename="gz-sim-multicopter-motor-model-system"
-      name="gz::sim::systems::MulticopterMotorModel">
-      <jointName>rotor_0_joint</jointName>
-      <linkName>rotor_0</linkName>
-      <turningDirection>ccw</turningDirection>
-      <timeConstantUp>0.0125</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>1000</maxRotVelocity>
-      <motorConstant>8.54858e-06</motorConstant>
-      <momentConstant>0.06</momentConstant>
-      <commandSubTopic>command/motor_speed</commandSubTopic>
-      <actuator_number>0</actuator_number>
-      <rotorDragCoefficient>0.000806428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
-      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
-      <motorType>velocity</motorType>
-    </plugin>
-    <plugin filename="gz-sim-multicopter-motor-model-system"
-      name="gz::sim::systems::MulticopterMotorModel">
-      <jointName>rotor_1_joint</jointName>
-      <linkName>rotor_1</linkName>
-      <turningDirection>ccw</turningDirection>
-      <timeConstantUp>0.0125</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>1000</maxRotVelocity>
-      <motorConstant>8.54858e-06</motorConstant>
-      <momentConstant>0.06</momentConstant>
-      <commandSubTopic>command/motor_speed</commandSubTopic>
-      <actuator_number>1</actuator_number>
-      <rotorDragCoefficient>0.000806428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
-      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
-      <motorType>velocity</motorType>
-    </plugin>
-    <plugin filename="gz-sim-multicopter-motor-model-system"
-      name="gz::sim::systems::MulticopterMotorModel">
-      <jointName>rotor_2_joint</jointName>
-      <linkName>rotor_2</linkName>
-      <turningDirection>cw</turningDirection>
-      <timeConstantUp>0.0125</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>1000</maxRotVelocity>
-      <motorConstant>8.54858e-06</motorConstant>
-      <momentConstant>0.06</momentConstant>
-      <commandSubTopic>command/motor_speed</commandSubTopic>
-      <actuator_number>2</actuator_number>
-      <rotorDragCoefficient>0.000806428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
-      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
-      <motorType>velocity</motorType>
-    </plugin>
-    <plugin filename="gz-sim-multicopter-motor-model-system"
-      name="gz::sim::systems::MulticopterMotorModel">
-      <jointName>rotor_3_joint</jointName>
-      <linkName>rotor_3</linkName>
-      <turningDirection>cw</turningDirection>
-      <timeConstantUp>0.0125</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>1000</maxRotVelocity>
-      <motorConstant>8.54858e-06</motorConstant>
-      <momentConstant>0.06</momentConstant>
-      <commandSubTopic>command/motor_speed</commandSubTopic>
-      <actuator_number>3</actuator_number>
-      <rotorDragCoefficient>0.000806428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
-      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
-      <motorType>velocity</motorType>
     </plugin>
   </model>
 </sdf>

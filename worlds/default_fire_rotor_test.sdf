@@ -15,7 +15,7 @@
             name="gz::sim::systems::Physics"/>
     <plugin filename="gz-sim-forcetorque-system"
             name="gz::sim::systems::ForceTorque"/>
-    <!-- WindEffects owns /world/default_rotor_test/wind/. The test links do not set
+    <!-- WindEffects owns /world/default_fire_rotor_test/wind/. The test links do not set
          enable_wind, so it updates the Wind component used by LiftDrag
          without adding a second, area-based wind force to the rig. -->
     <plugin filename="gz-sim-wind-effects-system"
