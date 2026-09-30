@@ -101,7 +101,7 @@
         <gz_frame_id>base_link</gz_frame_id>
         <always_on>1</always_on>
         <!-- Actual sensor rate is also limited by the world's physics step. -->
-        <update_rate>1000</update_rate>
+        <update_rate>500</update_rate>
         <imu>
           <angular_velocity>
             <x>
