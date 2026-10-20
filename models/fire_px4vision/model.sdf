@@ -774,5 +774,44 @@
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
       <motorType>velocity</motorType>
     </plugin>
+    <!-- Body drag is approximated using the drag coefficient of a
+     face-on cube (Cd = 1.05) for all three body axes.
+     This is a simplified assumption, not an experimentally
+     identified drag coefficient of the PX4 Vision quadrotor.
+     Reference: https://en.wikipedia.org/wiki/Drag_coefficient -->
+    <!-- Reference areas are computed from the projected
+     silhouettes of the PX4 Vision body mesh (in m^2). -->
+    <!-- For each axis, the geometric centroid of the corresponding
+     projection is used as an approximation of the center of pressure.
+     The coordinates are assumed to be expressed in the base_link frame.
+     Three independent drag components are applied to account for
+     axis-dependent aerodynamic forces and moments. -->
+    <plugin filename="FireBodyDragSystem"
+            name="fire::gz::systems::BodyDragSystem">
+      <link_name>base_link</link_name>
+      <air_density>1.2041</air_density>
+      <drag_coefficient>1.05 1.05 1.05</drag_coefficient>
+      <reference_area>0.01425383 0 0</reference_area>
+      <center_of_pressure>0 0.000425 0.003586</center_of_pressure>
+      <use_wind>true</use_wind>
+    </plugin>
+    <plugin filename="FireBodyDragSystem"
+            name="fire::gz::systems::BodyDragSystem">
+      <link_name>base_link</link_name>
+      <air_density>1.2041</air_density>
+      <drag_coefficient>1.05 1.05 1.05</drag_coefficient>
+      <reference_area>0 0.01377058 0</reference_area>
+      <center_of_pressure>0.006511 0 0.007313</center_of_pressure>
+      <use_wind>true</use_wind>
+    </plugin>
+    <plugin filename="FireBodyDragSystem"
+            name="fire::gz::systems::BodyDragSystem">
+      <link_name>base_link</link_name>
+      <air_density>1.2041</air_density>
+      <drag_coefficient>1.05 1.05 1.05</drag_coefficient>
+      <reference_area>0 0 0.02078028</reference_area>
+      <center_of_pressure>-0.002048 -0.000048 0</center_of_pressure>
+      <use_wind>true</use_wind>
+    </plugin>
   </model>
 </sdf>

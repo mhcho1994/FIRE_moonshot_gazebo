@@ -2,6 +2,16 @@
 <sdf version="1.9">
   <world name="default_fire_px4vision">
     <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <!-- Update world wind velocity; body and rotor plugins apply aerodynamic forces. -->
+    <plugin filename="gz-sim-wind-effects-system"
+            name="gz::sim::systems::WindEffects">
+      <force_approximation_scaling_factor>0</force_approximation_scaling_factor>
+      <horizontal>
+        <magnitude><time_for_rise>0.01</time_for_rise></magnitude>
+        <direction><time_for_rise>0.01</time_for_rise></direction>
+      </horizontal>
+      <vertical><time_for_rise>0.01</time_for_rise></vertical>
+    </plugin>
     <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
     <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
     <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
@@ -18,6 +28,9 @@
       <real_time_update_rate>1000</real_time_update_rate>
     </physics>
     <gravity>0 0 -9.8</gravity>
+    <wind>
+      <linear_velocity>0 0 0</linear_velocity>
+    </wind>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
     <atmosphere type="adiabatic"/>
     <scene>
